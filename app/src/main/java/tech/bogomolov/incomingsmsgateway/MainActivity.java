@@ -1,6 +1,7 @@
 package tech.bogomolov.incomingsmsgateway;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -82,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             View view = getLayoutInflater().inflate(R.layout.syslogs, null);
 
-            String logs = "";
+            StringBuilder logs = new StringBuilder();
             try {
                 String[] command = new String[]{
                         "logcat", "-d", "*:E", "-m", "1000",
@@ -94,14 +96,14 @@ public class MainActivity extends AppCompatActivity {
 
                 String line;
                 while ((line = bufferedReader.readLine()) != null) {
-                    logs += line + "\n";
+                    logs.append(line).append("\n");
                 }
             } catch (IOException ex) {
-                logs = "getLog failed";
+                logs = new StringBuilder("getLog failed");
             }
 
             TextView logsTextContainer = view.findViewById(R.id.syslogs_text);
-            logsTextContainer.setText(logs);
+            logsTextContainer.setText(logs.toString());
 
             TextView version = view.findViewById(R.id.syslogs_version);
             version.setText("v" + BuildConfig.VERSION_NAME);
