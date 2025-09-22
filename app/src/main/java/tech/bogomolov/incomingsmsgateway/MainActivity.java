@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             logsTextContainer.setText(logs.toString());
 
             TextView version = view.findViewById(R.id.syslogs_version);
-            version.setText("v" + BuildConfig.VERSION_NAME);
+            version.setText("v2.3.0");
 
             builder.setView(view);
             builder.setNegativeButton(R.string.btn_close, null);
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showList() {
-        showInfo("");
+        showInfo("test info");
 
         context = this;
         ListView listview = findViewById(R.id.listView);
